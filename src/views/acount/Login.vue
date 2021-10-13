@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-      dwdw
+  <a-button type="primary" ghost>Primary</a-button>
   </div>
 </template>
 

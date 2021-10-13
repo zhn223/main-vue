@@ -3,7 +3,7 @@
     <router-link to="/">首页</router-link> |
     <router-link to="/login">登录</router-link>
   </div>
-  <router-view/>
+  <router-view></router-view>
 </template>
 
 <style lang="scss">
