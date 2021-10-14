@@ -1,0 +1,21 @@
+.acount{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(56, 39, 39);
+    //弹性布局居中
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    .form-wrap{
+        width: 285px;
+        margin: auto;
+        padding-top: 100px;
+        color: white;
+        label{
+            font-size: 14px;
+            color: white;
+            display: block;
+        }
+    }
+    
+}
