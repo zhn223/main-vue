@@ -2,9 +2,9 @@
  * 手机号验证
  * @param {*} value 手机号
  */
-export funtion checkPhone(value){
+export function checkPhone(value){
     let regPhone = /^1[3456789]\d{9}$/;
-    return !regPhone.test(value)
+    return !regPhone.test(value);
 }
 
 /**

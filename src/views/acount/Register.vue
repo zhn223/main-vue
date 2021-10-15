@@ -10,7 +10,7 @@
           <label>密码</label>
           <a-input v-model:value="acount_form.password" type="password" autocomplete="off" />
         </a-form-item>
-        <a-form-item>
+        <a-form-item name="passwords">
           <label>确认密码</label>
           <a-input v-model:value="acount_form.passwords" type="password" autocomplete="off" />
         </a-form-item>
@@ -39,17 +39,17 @@
 </template>
 
 <script>
+import * as veri from "@/utils/verification";
 import {onMounted, reactive, toRefs} from "vue";
 //滑动验证组件
 export default {
   name: 'Register',
   setup(props){
     let validateUserName = async (rule, value, callback) => {
-        let regPhone = /^1[3456789]\d{9}$/;
         if (value === '') {
             return Promise.reject('请输入用户名！');
         } else {
-            if(!regPhone.test(value)){
+            if(!veri.checkPhone(value)){
                 return Promise.reject('输入的手机号格式有误！');
             }
             return Promise.resolve();
@@ -62,6 +62,17 @@ export default {
         } else {
             if(!regPassWord.test(value)){
                 return Promise.reject('密码必须包含字母和数字，且在6-16位之间！');
+            }
+            return Promise.resolve();
+        }
+    };
+    let validatePassWords = async (rule, value, callback) => {
+        let regPassWord = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
+        if (value === '') {
+            return Promise.reject('请输入确认密码！');
+        } else {
+            if(value !== acount_form.password){
+                return Promise.reject('密码不一致');
             }
             return Promise.resolve();
         }
@@ -85,6 +96,9 @@ export default {
         ],
         password:[
             {required: true, validator: validatePassWord, trigger: 'change'},
+        ],
+        passwords:[
+            {required: true, validator: validatePassWords, trigger: 'change'},
         ]
       },
     });
