@@ -14,30 +14,29 @@
           <label>确认密码</label>
           <a-input v-model:value="acount_form.passwords" type="password" autocomplete="off" />
         </a-form-item>
-        <a-form-item>
-          <label>验证码</label>
-          <a-row :gutter="15">
-              <a-col :span="14">
-                <a-input v-model:value="acount_form.code" type="password" autocomplete="off" />
-              </a-col>
-              <a-col :span="10">
-                  <a-button type="primary" block>获取验证码</a-button>
-              </a-col>
-          </a-row>
-          
+        <a-form-item name="code">
+            <label>验证码</label>
+            <a-row :gutter="15">
+                <a-col :span="14">
+                    <a-input maxlength="6" v-model:value="acount_form.code" type="password" autocomplete="off" />
+                </a-col>
+                <a-col :span="10">
+                    <a-button type="primary" block>获取验证码</a-button>
+                </a-col>
+            </a-row>
         </a-form-item>
         <a-form-item>
-          <a-button type="primary" html-type="submit" block>注册</a-button>
+            <a-button type="primary" html-type="submit" block>注册</a-button>
         </a-form-item>
-      </a-form>
-      <div class="fs-12 text-center">
-        <a href="" class="color-white">忘记密码</a> ｜
-        <router-link to="/register" class="color-white">注册</router-link>
-      </div>
+    </a-form>
+        <div class="fs-12 text-center">
+            <a href="" class="color-white">忘记密码</a> ｜
+            <router-link to="/register" class="color-white">注册</router-link>
+        </div>
     </div>
   </div>
 </template>
-
+ 
 <script>
 import * as veri from "@/utils/verification";
 import {onMounted, reactive, toRefs} from "vue";
@@ -45,34 +44,47 @@ import {onMounted, reactive, toRefs} from "vue";
 export default {
   name: 'Register',
   setup(props){
+    //校验用户名
     let validateUserName = async (rule, value, callback) => {
         if (value === '') {
             return Promise.reject('请输入用户名！');
         } else {
-            if(!veri.checkPhone(value)){
+            if(veri.checkPhone(value)){
                 return Promise.reject('输入的手机号格式有误！');
             }
             return Promise.resolve();
         }
     };
+    //校验密码
     let validatePassWord = async (rule, value, callback) => {
-        let regPassWord = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
         if (value === '') {
             return Promise.reject('请输入密码！');
         } else {
-            if(!regPassWord.test(value)){
+            if(veri.checkPassWord(value)){
                 return Promise.reject('密码必须包含字母和数字，且在6-16位之间！');
             }
             return Promise.resolve();
         }
     };
+    //校验验证密码
     let validatePassWords = async (rule, value, callback) => {
-        let regPassWord = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
+        const password = formConfig.acount_form.password;
         if (value === '') {
             return Promise.reject('请输入确认密码！');
         } else {
-            if(value !== acount_form.password){
+            if(value !== password){
                 return Promise.reject('密码不一致');
+            }
+            return Promise.resolve();
+        }
+    };
+    //校验验证码
+    let validateCode = async (rule, value, callback) => {
+        if (value === '') {
+            return Promise.reject('请输入验证码！');
+        } else {
+            if(veri.checkCode(value)){
+                return Promise.reject('验证码必须包含字母和数字，为6位！');
             }
             return Promise.resolve();
         }
@@ -99,6 +111,9 @@ export default {
         ],
         passwords:[
             {required: true, validator: validatePassWords, trigger: 'change'},
+        ],
+        code:[
+            {required: true, validator: validateCode, trigger: 'change'},
         ]
       },
     });
