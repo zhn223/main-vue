@@ -21,7 +21,14 @@
                     <a-input maxlength="6" v-model:value="acount_form.code" type="password" autocomplete="off" />
                 </a-col>
                 <a-col :span="10">
-                    <a-button type="primary" block>获取验证码</a-button>
+                    <a-button 
+                    type="primary" 
+                    @click="getCode"
+                    block 
+                    :loading="button_loading" 
+                    :disabled="button_disabled">
+                    {{button_text}}
+                </a-button>
                 </a-col>
             </a-row>
         </a-form-item>
@@ -90,34 +97,43 @@ export default {
         }
     };
     const formConfig = reactive({
-      //表单布局
-      layout: {
-        wrapperCol:{ span:24 },
-      },
-      //表单值
-      acount_form:{
-        username:"",
-        password:"",
-        passwords:"",
-        code:"",
-      },
-      //验证规则
-      rules_form:{
-        username:[
-            {required: true, validator: validateUserName, trigger: 'change'},
-        ],
-        password:[
-            {required: true, validator: validatePassWord, trigger: 'change'},
-        ],
-        passwords:[
-            {required: true, validator: validatePassWords, trigger: 'change'},
-        ],
-        code:[
-            {required: true, validator: validateCode, trigger: 'change'},
-        ]
-      },
+        //表单布局
+        layout: {
+            wrapperCol:{ span:24 },
+        },
+        //表单值
+        acount_form:{
+            username:"",
+            password:"",
+            passwords:"",
+            code:"",
+        },
+        //验证规则
+        rules_form:{
+            username:[
+                {required: true, validator: validateUserName, trigger: 'change'},
+            ],
+            password:[
+                {required: true, validator: validatePassWord, trigger: 'change'},
+            ],
+            passwords:[
+                {required: true, validator: validatePassWords, trigger: 'change'},
+            ],
+            code:[
+                {required: true, validator: validateCode, trigger: 'change'},
+            ]
+        },
     });
-    const data = toRefs(formConfig);
+    const dataItem = reactive({
+        //验证码按钮
+        button_text:"获取验证码",
+        button_loading:false,
+        button_disabled:false,
+        sec:5,
+        timer:null,
+    })
+    const data = toRefs(dataItem);
+    const form = toRefs(formConfig);
     //提交表单
     const handleFinish = () => {
       console.log("dddd");
@@ -125,11 +141,25 @@ export default {
     onMounted(() => {
         
     });
-    console.log(data)
+    //获取验证码
+    const getCode = () =>{
+        dataItem.timer = setInterval( () =>{
+            const s = dataItem.sec--;
+            dataItem.button_disabled = true;
+            dataItem.button_text = `${s}秒后点击`;
+            if(s <= 0 ){
+                clearInterval(dataItem.timer);
+                dataItem.button_text = `重新获取`;
+                dataItem.button_disabled = false;
+            }
+        },1000)
+    }
     return {
+      ...form,
       ...data,
       formConfig,
-      handleFinish
+      handleFinish,
+      getCode,
     };
   },
   components: {
