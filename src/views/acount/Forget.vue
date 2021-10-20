@@ -37,19 +37,19 @@
         </a-form-item>
     </a-form>
         <div class="fs-12 text-center">
-            <router-link to="/login" class="color-white">登录</router-link>｜
+            <router-link to="/forget" class="color-white">忘记密码</router-link>｜
             <router-link to="/register" class="color-white">注册</router-link>
         </div>
     </div>
   </div>
 </template>
- 
+
 <script>
 import * as veri from "@/utils/verification";
 import {onMounted, reactive, toRefs} from "vue";
 //滑动验证组件
 export default {
-  name: 'Register',
+  name: 'Forget',
   setup(props){
     //校验用户名
     let validateUserName = async (rule, value, callback) => {
