@@ -1,0 +1,11 @@
+<template>
+    角色
+</template>
+<script>
+export default {
+    name: "Role"
+}
+</script>
+<style lang="scss" scoped>
+
+</style>
