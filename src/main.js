@@ -5,5 +5,8 @@ import store from './store'
 //ant-desgin-vue
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
-
-createApp(App).use(store).use(router).use(Antd).mount('#app')
+//axios
+import Axios from "axios";
+const app = createApp(App);
+app.config.globalProperties.$axios = Axios;
+app.use(store).use(router).use(Antd).mount('#app')
