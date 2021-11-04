@@ -1,13 +1,50 @@
 <template>
-    <div>角色管1111理</div>
+  <a-table :dataSource="dataSource" :columns="columns" :pagination="pagination" />
 </template>
-
 <script>
+import { reactive } from "vue";
 export default {
-   name: "User",
-   components: {},
-   props: {}
-}
+    name:"",
+    components:"",
+    props:"",
+    setup(props) {
+        const data = reactive({
+            dataSource: [
+                {
+                    key: '1',
+                    name: '胡彦斌',
+                    age: 32,
+                    address: '西湖区湖底公园1号',
+                },
+                {
+                    key: '2',
+                    name: '胡彦祖',
+                    age: 42,
+                    address: '西湖区湖底公园1号',
+                },
+            ],
+
+            columns: [
+                {
+                    title: '姓名',
+                    dataIndex: 'name',
+                    key: 'name',
+                },
+                {
+                    title: '年龄',
+                    dataIndex: 'age',
+                    key: 'age',
+                },
+                {
+                    title: '住址',
+                    dataIndex: 'address',
+                    key: 'address',
+                },
+            ],
+        });
+        return{
+            ...data,
+        }
+    },
+};
 </script>
-<style lang='scss' scoped>
-</style>
