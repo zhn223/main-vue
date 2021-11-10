@@ -7,6 +7,33 @@
     <title>Document</title>
 </head>
 <body>
-    ds
+    <!-- 浮动解决 -->
+    <style>
+        html *{
+            padding: 0;
+            margin: 0;
+        }
+        .left-nav{
+            float: left;
+            width: 300px;
+            background-color: yellow;
+        }
+        .right-nav{
+            float: right;
+            width: 300px;
+            background-color: green;
+        }
+        .left-right-content div{
+            height: 300px;
+        }
+    </style>
+    <article class="left-right-content">
+        <div class="left-nav">左边</div>
+        <div class="right-nav">右边</div>
+        <div class="center-content">
+            <h1>假设高度已知，请写出三栏布局，其中左、右栏宽度各为300px，中间自适应</h1>
+        </div>
+    </article>
+    
 </body>
 </html>
