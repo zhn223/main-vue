@@ -1,39 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    html * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .layout {
+        margin-top: 20px;
+    }
+</style>
+
 <body>
     <!-- 浮动解决 -->
-    <style>
-        html *{
-            padding: 0;
-            margin: 0;
-        }
-        .left-nav{
-            float: left;
-            width: 300px;
-            background-color: yellow;
-        }
-        .right-nav{
-            float: right;
-            width: 300px;
-            background-color: green;
-        }
-        .left-right-content div{
-            height: 300px;
-        }
-    </style>
-    <article class="left-right-content">
-        <div class="left-nav">左边</div>
-        <div class="right-nav">右边</div>
-        <div class="center-content">
-            <h1>假设高度已知，请写出三栏布局，其中左、右栏宽度各为300px，中间自适应</h1>
-        </div>
-    </article>
-    
+    <section class="layout">
+        <style>
+            .left-nav {
+                float: left;
+                width: 300px;
+                background-color: yellow;
+            }
+
+            .right-nav {
+                float: right;
+                width: 300px;
+                background-color: green;
+            }
+
+            .left-right-content div {
+                height: 100px;
+            }
+        </style>
+        <article class="left-right-content">
+            <div class="left-nav">左边</div>
+            <div class="right-nav">右边</div>
+            <div class="center-content">
+                <h1>假设高度已知，请写出三栏布局，其中左、右栏宽度各为300px，中间自适应</h1>
+            </div>
+        </article>
+    </section>
+
+    <!-- 绝对定位 -->
+    <section class="layout absolute">
+        <style>
+            .layout.absolute .left-right-content>div{
+                position: absolute;
+            }
+            .layout.absolute .left{
+                left: 0;
+                width: 300px;
+                background-color: yellow;
+            }
+            .layout.absolute .right{
+                right: 0;
+                width: 300px;
+                background-color: green;
+            }
+            .layout.absolute .center{
+                left: 300px;
+                right: 300px;
+            }
+        </style>
+        <article class="left-right-content">
+            <div class="left">左边</div>
+            <div class="center">
+                <h1>绝对定位解决方式</h1>
+                1.这是三栏布局的正中间部分
+                2.这是三栏布局的正中间部分
+            </div>
+            <div class="right">右边</div>
+        </article>
+    </section>
 </body>
+
 </html>
